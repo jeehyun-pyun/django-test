@@ -3,7 +3,6 @@ from mysite.titanic.models.service import Service
 from mysite.titanic.templates.plot import Plot
 import pandas as pd
 import numpy as np
-from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 
 class Controller(object):
@@ -11,7 +10,7 @@ class Controller(object):
     dataset = Dataset()
     service = Service()
 
-    def modeling(self, train, test) -> object:
+    def modeling(self,train, test) -> object:
         service = self.service
         this = self.preprocess(train, test)
         this.label = service.create_label(this)
@@ -20,7 +19,7 @@ class Controller(object):
 
     def learning(self, train, test):
         this = self.modeling(train, test)
-        print(f'사이킷런의 SVC 알고리즘 정확도 {self.service.get_accurcy(this)} %')
+        print(f'사이킷런 알고리즘 정확도 {self.service.get_accurcy(this)} %')
 
     def submit(self, train, test):
         this = self.modeling(train, test)
@@ -40,7 +39,8 @@ class Controller(object):
         this = service.gender_norminal(this)
         this = service.age_ordinal(this)
         this = service.fare_ordinal(this)
-        this = service.drop_feature(this, 'Name', 'Sex', 'Cabin', 'Ticket', 'Age', 'Fare')
+        this = service.drop_feature(this,'Name', 'Sex', 'Cabin', 'Ticket', 'Age', 'Fare')
+
         self.print_this(this)
         return this
 
@@ -56,5 +56,4 @@ class Controller(object):
         print(f'7. Test 의 상위 1개 행\n {this.test.head()}개')
         print(f'8. Test 의 null 의 갯수\n {this.test.isnull().sum()}개')
         print('*' * 100)
-
 

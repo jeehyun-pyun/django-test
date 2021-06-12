@@ -9,7 +9,6 @@ if __name__ == '__main__':
             break
         elif menu == '1':
             plot = Plot('train.csv')
-            plot.print_survived_dead()
             '''
             Train의 데이터 타입은 is <class 'pandas.core.frame.DataFrame'>.
             Train 컬럼은 'PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
